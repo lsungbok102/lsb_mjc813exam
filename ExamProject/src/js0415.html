@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam0415 예제</title>
+</head>
+<body>
+<h1>Exam0415 예제 실행</h1>
+
+<div>
+    <h3>1. 키 검사</h3>
+    <input type="number" id="heightInput" placeholder="키를 입력하세요: ">
+    <button onclick="exam.pdfExam17()">확인</button>
+</div>
+
+<div>
+    <h3>2. 점수 평균</h3>
+    <input type="text" id="scoreInput" placeholder="점수를 공백으로 입력: ">
+    <button onclick="exam.pdfExam18()">평균 계산</button>
+</div>
+
+<hr>
+
+<div id="result" style="font-weight: bold;"></div>
+
+<script src="Exam0415.js"></script>
+<script>
+    const exam = new Exam0415();
+</script>
+</body>
+</html>
