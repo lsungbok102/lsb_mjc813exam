@@ -21,4 +21,4 @@ class Exam0415 {
     }
 }
 
-let exam = new Exam0415();
+let exam0415 = new Exam0415();
