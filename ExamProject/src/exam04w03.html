@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>4월3째주 문제</title>
+</head>
+<body>
+<h1>문제40 : 놀이동산에 가자</h1>
+<div>
+    테마파크에 온 원범이와 친구들은 놀이기구를 타려고 합니다. 모든 놀이기구는 한번에 타는 인원수에는 제한이 없지만 제한 무게를 넘으면 무조건 다음 기구를 타야 합니다.
+</div>
+<b>
+    원범이와 친구들이 총 몇 명 탈 수 있는지 알 수 있는 프로그램을 작성해 주세요.
+</b>
+<div>
+    첫번째 입력으로 제한 무게가 주어지고 두번째 입력으로는 함께한 친구들의 수 n이 주어집니다.
+    그 다음 차례대로 탑승할 친구들의 몸무게가 주어집니다. 몸무게는 무작위로 주어집니다.
+</div>
+<pre>
+    입력
+    50
+    5
+    20
+    20
+    20
+    20
+    20
+
+    출력
+    2
+</pre>
+<label for="exam40_01">놀이기구 무게:</label><input type="number" id="exam40_01" value="50"/><br/>
+<label for="exam40_02">친구의 숫자:</label><input type="number" id="exam40_02" value="5"/><br/>
+<label for="exam40_03">친구들의 몸무게(공백으로 구분):</label><input type="text" id="exam40_03" value="20 20 20 20 20"/><br/>
+<button onclick="solveExam40();">문제40 풀이</button>
+<div id="exam40result">문제40 결과</div>
+<hr/>
+<h1>문제41 : 소수판별</h1>
+<div>
+    숫자가 주어지면 <b>소수인지 아닌지 판별하는 프로그램</b>을 작성해주세요.
+    소수이면 YES로, 소수가 아니면 NO로 출력해주세요.
+    (소수 : 1과 자기 자신만으로 나누어떨어지는 1보다 큰 양의 정수)
+</div>
+<label for="exam41_01">숫자:</label><input type="number" id="exam41_01" value="13"/><br/>
+<button onclick="solveExam41();">문제41 풀이</button>
+<div id="exam41result">문제41 결과</div>
+<hr/>
+<h1>문제42 : 일짜의 요일을 구하자</h1>
+<div>
+    2020년 1월 1일은 수요일입니다. 2020년 a월 b일은 무슨 요일일까요?
+    두 수 a, b를 입력받아 2020년 a월 b일이 무슨 요일인지 리턴하는 함수 solution을 완성하세요.
+    요일의 이름은 일요일부터 토요일까지 각각 SUN, MON, TUE, WED, THU, FRI, SAT 입니다.
+</div>
+<b>
+    예를 들어 a = 5, b = 24라면 5월 24일은 일요일이므로 문자열 "SUN"를 반환하세요.
+</b>
+<div>
+    2020년은 윤년입니다.
+    2020년 a월 b일은 실제로 있는 날입니다.
+    (13월 26일이나 2월 45일 같은 날짜는 주어지지 않습니다.)
+</div>
+<label for="exam42_01">년도:</label><input type="number" id="exam42_01" value="2025"/><br/>
+<label for="exam42_02">월:</label><input type="number" id="exam42_02" value="1"/><br/>
+<label for="exam42_03">일:</label><input type="number" id="exam42_03" value="1"/><br/>
+<button onclick="solveExam42();">문제42 풀이</button>
+<div id="exam42result">문제42 결과</div>
+<hr/>
+<h1>문제53 : 괄호 문자열</h1>
+<div>
+    괄호 문자열이란 괄호 기호인 '{', '}', '[', ']', '(', ')' 와 같은 것을 말한다. 그중 괄호의 모양이 바르게 구성된 문자열을 바른 문자열, 그렇지 않은 문자열을 바르지 않은 문자열이라 부르도록 하자.
+
+    (())와 같은 문자열은 <b>바른 문자열</b>이지만 ()()) 와 같은 문자열은 <b>바르지 않은 문자열</b>이다.
+    (해당 문제에서는 소괄호만 판별하지만,  중괄호와 대괄호까지 판별해 보세요.)
+
+    <b>입력으로 주어진 괄호 문자열이 바른 문자열인지 바르지 않은 문자열인지 "YES"와 "NO"로 구분된 문자열을 출력해보자.</b>
+</div>
+<label for="exam53_01">문자열입력():</label><input type="text" id="exam53_01" size="100" value="abc(hg5[6]){(ggg)} (as(g[])fd{)dbs}"/><br/>
+<button onclick="solveExam53();">문제53 풀이</button>
+<div id="exam53result">문제53 결과</div>
+<hr/>
+<h1>문제58 : 콤마 찍기</h1>
+<div>
+    원범이는 편의점 아르바이트가 끝난 후 정산을 하고자 합니다.
+    정산을 빨리하고 집에 가고 싶은 원범이는 프로그램을 만들려고 합니다.<br/>
+    <b>숫자를 입력받고 천 단위로 콤마(,)를 찍어주세요.</b><br/>
+    예를 들어, <b>123456789</b>를 입력받았으면 <b>123,456,789</b>를 출력해야 합니다.
+</div>
+<label for="exam58_01">숫자:</label><input type="number" id="exam58_01" value="123456789"/><br/>
+<button onclick="solveExam58();">문제58 풀이</button>
+<div id="exam58result1">문제58 결과</div>
+<div id="exam58result2">문제58 결과</div>
+<hr/>
+<h1>문제59 : 빈칸채우기</h1>
+<div>
+    총 문자열의 길이는 50으로 제한하고 사용자가 문자열을 입력하면 그 문자열을 가운데 정렬을 해주고, 나머지 빈 부분에는 '='을 채워 넣어주세요.
+</div>
+<pre>
+입력
+hi
+
+출력
+========================hi========================
+</pre>
+<label for="exam59_01">문자열:</label><input type="text" id="exam59_01" value="hi" maxlength="50" size="50"/><br/>
+<button onclick="solveExam59();">문제59 풀이</button>
+<div id="exam59result">문제59 결과</div>
+<hr/>
+<h1>문제61 : 문자열 압축하기</h1>
+<div>
+    문자열을 입력받고 연속되는 문자열을 압축해서 표현하고 싶습니다.
+</div>
+<pre>
+입력
+aaabbbbcdddd
+
+출력
+a3b4c1d4
+</pre>
+<label for="exam61_01">문자열:</label><input type="text" id="exam61_01" value="aaabbbbcdddd" maxlength="50" size="50"/><br/>
+<button onclick="solveExam61();">문제61 풀이</button>
+<div id="exam61result1">문제61 결과</div>
+<div id="exam61result2">문제61 결과</div>
+<hr/>
+<h1>문제68 : 버스 시간표</h1>
+<div>
+    학교가 끝난 지원이는 집에 가려고 합니다. 학교 앞에 있는 버스 시간표는 너무 복잡해서 버스 도착시간이 몇 분 남았는지 알려주는 프로그램을 만들고 싶습니다.
+</div>
+<div>
+    <b>
+        버스 시간표와 현재 시간이 주어졌을 때 버스 도착 시간이 얼마나 남았는지 알려주는 프로그램
+    </b>
+    을 만들어주세요.
+</div>
+<ul>
+    <li>버스 시간표와 현재 시간이 입력으로 주어집니다.</li>
+    <li>출력 포맷은 "00시 00분"입니다.<br/>
+        만약 1시간 3분이 남았다면 "01시간 03분"으로 출력해야 합니다.</li>
+    <li>버스 시간표에 현재 시간보다 이전인 버스가 있다면 "지나갔습니다."라고 출력합니다.</li>
+</ul>
+<pre>
+입력
+["12:30", "13:20", "14:13"]
+"12:40"
+
+출력
+['지나갔습니다', '00시간 40분', '01시간 33분']
+</pre>
+<label for="exam68_01">버스시간:</label><input type="text" id="exam68_01" value="12:30, 13:20, 14:13" maxlength="50" size="50"/><br/>
+<label for="exam68_02">현재시간:</label><input type="text" id="exam68_02" value="12:40" maxlength="50" size="50"/><br/>
+<button onclick="solveExam68();">문제68 풀이</button>
+<div id="exam68result">문제68 결과</div>
+<hr/>
+<h1>문제84 : 숫자뽑기</h1>
+<div>
+    소정이는 어떤 숫자에서 k개의 수를 뽑았을 때 가장 큰 수를 찾는 놀이를 하고 있습니다.
+    예를 들어, 숫자 1723에서 두 개의 수를 뽑으면 [17, 12, 13, 72, 73, 23]을 만들 수 있습니다.
+    이 중 가장 큰 수는 73입니다.
+
+    위 예시처럼 <b>어떤 수 n에서 k개의 수를 선택하여 만들 수 있는 수 중에서 가장 큰 수</b>를 찾아 주세요.
+</div>
+<label for="exam84_01">n의 수:</label><input type="text" id="exam84_01" value="1723" maxlength="50" size="50"/><br/>
+<label for="exam84_02">k개의 숫자:</label><input type="text" id="exam84_02" value="2" maxlength="50" size="50"/><br/>
+<button onclick="solveExam84();">문제84 풀이</button>
+<div id="exam84result">문제84 결과</div>
+<hr/>
+<h1>문제87 : 천하제일 먹기 대회</h1>
+<div>
+    천하제일 먹기 대회가 개최되었습니다.
+    이 대회는 정해진 시간이 끝난 후 음식을 먹은 그릇 개수를 파악한 후 각 선수들의 등수를 매깁니다.
+    <ol>
+        <li>같은 이름의 선수는 없습니다.</li>
+        <li>접시의 수가 같은 경우는 없습니다.</li>
+    </ol>
+</div>
+<pre>
+    입력예시:
+    손오공 야모챠 메지터 비콜로
+    70 10 55 40
+    출력예시:
+    {'손오공': 1, '메지터': 2, '비콜로': 3, '야모챠': 4}
+</pre>
+<label for="exam87_01">참가자 이름 들(공백으로 구분):</label><input type="text" id="exam87_01" value="손오공 야모챠 메지터 비콜로" maxlength="100" size="50"/><br/>
+<label for="exam87_02">먹은 접시 숫자 들(공백으로 구분):</label><input type="text" id="exam87_02" value="70 10 55 40" maxlength="100" size="50"/><br/>
+<button onclick="solveExam87();">문제87 풀이</button>
+<div id="exam87result">문제87 결과</div>
+<hr/>
+<h1>문제91 : 반평균 등수</h1>
+<div>
+    한 반에 30명인 학생, 총 7개의 반 점수가 '국어, 영어, 수학, 사회, 과학' 순서로 있는 다중 리스트를 랜덤 한 값으로 만들어주시고 아래 값을 모두 출력하세요.
+    <ol>
+        <li>반 점수 모두가 담긴 전교 점수 다중 리스트를 만들어서 출력 해 주세요.</li>
+        <li>반 각과목평균, 전체평균을 구하세요.</li>
+        <li>반 1등 점수를 구하세요.</li>
+        <li>전교 각과목평균, 전체평균 을 구하세요.</li>
+    </ol>
+    (출력 형식은 상관없습니다.)
+</div>
+<button onclick="solveExam91();">문제91 풀이</button>
+<div id="exam91result">1반 1: 56, 75, 68, 87, 33<br/>1반 2: 56, 75, 68, 87, 33</div>
+<hr/>
+<h1>문제96 : 넓은 텃밭 만들기!</h1>
+<div>
+    수연이는 밭농사를 시작하기로 마음을 먹었다. 집 앞 텃밭을 만들기로 하고 돌들을 제거하고 있는데 매우 큰 바위는 옮기지 못해 고심하고 있다.
+
+    이에 수연이는 다음과 같은 규칙을 정한다.
+    <ol>
+        <li>바위를(바위는 '1'로 표기한다.) 피해 텃밭을 만들되 정사각형 모양으로 텃밭을 만든다.</li>
+        <li>텃밭은 가장 넓은 텃밭 1개만 만들고 그 크기를 반환한다.</li>
+        <li>만든 텃밭은 모두 '#'으로 처리한다.</li>
+    </ol>
+</div>
+<label for="exam96_01">정방형 0 또는 1:</label><br/>
+<textarea id="exam96_01" cols="50" rows="5">0 0 0 0 0
+0 1 0 0 0
+0 1 0 0 0
+0 0 1 0 0
+0 0 0 1 0</textarea><br/>
+<button onclick="solveExam96();">문제96 풀이</button>
+<div id="exam96result">
+    3 X 3<br/>
+    0 0 # # #<br/>
+    0 1 # # #<br/>
+    0 1 # # #<br/>
+    0 0 1 0 0<br/>
+    0 0 0 1 0<br/>
+</div>
+<hr/>
+</body>
+<script src="js0418.js"></script>
+</html>
