@@ -81,45 +81,4 @@ public class MyMathMathic {
     public int toDec(String a) {
         return Integer.parseInt(a);
     }
-
-    public int avg(int[] array){
-        int sum = 0;
-        for(int i = 0; i < array.length; i++){
-            sum += array[i];
-        }
-        return sum / array.length;
-    }
-
-    public int sum(int[] array) {
-        int sum = 0;
-        for (int i = 0; i < array.length; i++) {
-            sum += array[i];
-        }
-        return sum;
-    }
-
-    public int sumOfNumber(int[] array, int number) {
-        int total = 0;
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] % number == 0) {
-                total += array[i];
-            }
-        }
-        return total;
-    }
-
-    public int sumOfLoop(int a, int b) {
-        int total = 0;
-        for (int i = a; i <= b; i++) {
-            total += i;
-        }
-        return total;
-    }
-
-    public int sumOfFav(int a, int b) {
-        if (a > b) {
-            return 0;
-        }
-        return a + sumOfFav(a + 1, b);
-    }
 }
