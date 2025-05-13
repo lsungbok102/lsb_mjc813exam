@@ -1,5 +1,8 @@
 package com.mjc.studyjava;
 
+import java.math.BigDecimal;
+import java.util.Random;
+
 public class MyMathMathic {
 
     public int add(int a, int b) {
@@ -121,5 +124,58 @@ public class MyMathMathic {
             return 0;
         }
         return a + sumOfFav(a + 1, b);
+    }
+
+    public BigDecimal getBigDecimal(Integer n, Integer s) {
+        return new BigDecimal(n + "." + s);
+    }
+
+    public Integer[] getIntegerArray(int[] array) {
+        Integer[] result = new Integer[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i];
+        }
+        return result;
+    }
+
+    public int[] makeRandomIntArray(int n) {
+        Random rand = new Random();
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++) {
+            result[i] = rand.nextInt();
+        }
+        return result;
+    }
+
+    public String makeEncryptString(String text, int n) {
+        Random rand = new Random();
+        int len = text.length();
+        int totalLength = n * len;
+        char[] result = new char[totalLength];
+
+        for (int i = 0; i < totalLength; i++) {
+            result[i] = randomChar(rand);
+        }
+
+        for (int i = 0; i < len; i++) {
+            result[i * n] = text.charAt(i);
+        }
+
+        return new String(result);
+    }
+
+    public String makeDecryptString(String code, int n) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < code.length(); i++) {
+            if (i % n == 0) {
+                sb.append(code.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+
+    private static char randomChar(Random rand) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        return chars.charAt(rand.nextInt(chars.length()));
     }
 }

@@ -1,5 +1,8 @@
 package com.mjc.studyjava;
 
+import java.math.BigDecimal;
+import java.util.Random;
+
 public class MyMathMathic {
 
     public int add(int a, int b) {
@@ -80,5 +83,105 @@ public class MyMathMathic {
 
     public int toDec(String a) {
         return Integer.parseInt(a);
+    }
+
+    public int avg(int[] array) {
+        if (array == null || array.length == 0) return 0;
+        int sum = 0;
+        for (int i = 0; i < array.length; i++) {
+            sum += array[i];
+        }
+        return sum / array.length;
+    }
+
+
+    public int sum(int[] array) {
+        if (array == null) return 0;
+        int sum = 0;
+        for (int value : array) {
+            sum += value;
+        }
+        return sum;
+    }
+
+    public int sumOfNumber(int[] array, int number) {
+        if (array == null) return 0;
+        int total = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] % number == 0) {
+                total += array[i];
+            }
+        }
+        return total;
+    }
+
+    public int sumOfLoop(int a, int b) {
+        int total = 0;
+        for (int i = a; i <= b; i++) {
+            total += i;
+        }
+        return total;
+    }
+
+    public int sumOfFav(int a, int b) {
+        if (a > b) return 0;
+        return a + sumOfFav(a + 1, b);
+    }
+
+    public BigDecimal getBigDecimal(Integer n, Integer s) {
+        if (n == null || s == null) return BigDecimal.ZERO;
+        return new BigDecimal(n + "." + s);
+    }
+
+    public Integer[] getIntegerArray(int[] array) {
+        if (array == null) return null;
+        Integer[] result = new Integer[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i];
+        }
+        return result;
+    }
+
+    public int[] makeRandomIntArray(int n) {
+        if (n <= 0) return new int[0];
+        Random rand = new Random();
+        int[] result = new int[n];
+        for (int i = 0; i < n; i++) {
+            result[i] = rand.nextInt();
+        }
+        return result;
+    }
+
+    public String makeEncryptString(String text, int n) {
+        if (text == null || n < 5) return "";
+        Random rand = new Random();
+        int len = text.length();
+        int totalLength = n * len + 1;
+        char[] result = new char[totalLength];
+
+        for (int i = 0; i < totalLength; i++) {
+            result[i] = randomChar(rand);
+        }
+
+        for (int i = 0; i < len; i++) {
+            result[i * n + 5] = text.charAt(i);
+        }
+        return new String(result);
+    }
+
+    public String makeDecryptString(String code, int n) {
+        if (code == null || n < 5) return "";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < code.length(); i++) {
+            if (i % n == 0) {
+                sb.append(code.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
+
+    private static char randomChar(Random rand) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        return chars.charAt(rand.nextInt(chars.length()));
     }
 }
