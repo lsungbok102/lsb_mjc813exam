@@ -29,11 +29,15 @@ public class MyMathMathic {
         return a == b;
     }
 
-    public boolean same(String a, String b) {
+    public boolean same(Object a, Object b) {
+        if (a == null || b == null) {
+            return a == b;
+        }
+
         return a.equals(b);
     }
 
-    public boolean notSame(int a, int b) {
+    public boolean notsame(int a, int b) {
         return a != b;
     }
 
@@ -82,7 +86,14 @@ public class MyMathMathic {
     }
 
     public int toDec(String a) {
-        return Integer.parseInt(a);
+        if (a == null) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(a);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
     public int avg(int[] array) {
@@ -156,33 +167,34 @@ public class MyMathMathic {
         if (text == null || n < 5) return "";
         Random rand = new Random();
         int len = text.length();
-        int totalLength = n * len;
+        int totalLength = n * len + 1;
         char[] result = new char[totalLength];
 
         for (int i = 0; i < totalLength; i++) {
-            result[i] = randomChar(rand);  // 랜덤 문자로 채우기
+            result[i] = randomChar(rand);
         }
 
         for (int i = 0; i < len; i++) {
-            result[i * n] = text.charAt(i);  // 원하는 위치에 원문 문자 삽입
+            result[i * n + 5] = text.charAt(i);
         }
 
         return new String(result);
     }
 
+    public String makeDecryptString(String encryptedText, int n) {
+        if (encryptedText == null || n < 5) return "";
 
-    public String makeDecryptString(String code, int n) {
-        if (code == null || n < 5) return "";
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < code.length(); i++) {
-            if (i % n == 0) {
-                sb.append(code.charAt(i));
-            }
+        int len = encryptedText.length();
+        StringBuilder originalText = new StringBuilder();
+
+        for (int i = 5; i < len; i += n) {
+            originalText.append(encryptedText.charAt(i));
         }
-        return sb.toString();
+
+        return originalText.toString();
     }
 
-    private static char randomChar(Random rand) {
+    private char randomChar(Random rand) {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         return chars.charAt(rand.nextInt(chars.length()));
     }

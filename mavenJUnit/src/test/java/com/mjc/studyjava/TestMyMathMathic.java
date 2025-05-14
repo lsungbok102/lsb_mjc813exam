@@ -28,8 +28,8 @@ public class TestMyMathMathic {
         assertThat(mmm.same("126", "")).isEqualTo(false);
         assertThat(mmm.same(null, "ab")).isEqualTo(false);
         assertThat(mmm.same("null", null)).isEqualTo(false);
-        assertThat(mmm.notSame(71, 51)).isEqualTo(true);
-        assertThat(mmm.notSame(26, 26)).isEqualTo(false);
+        assertThat(mmm.notsame(71, 51)).isEqualTo(true);
+        assertThat(mmm.notsame(26, 26)).isEqualTo(false);
         assertThat(mmm.big(7842, 7841)).isEqualTo(true);
         assertThat(mmm.big(5662, 5992)).isEqualTo(false);
         assertThat(mmm.big(1111, 1111)).isEqualTo(false);
