@@ -1,4 +1,5 @@
 package com.mjc.studyjava;
+
 enum CPU {
     Gen9_i3, Gen9_i5, Gen9_i7, Gen9_i9, i5_14400F
 }
@@ -26,16 +27,76 @@ public class Computer {
     private StorageType storageType;
     private StorageSize storageSize;
     private GraphicCard graphicCard;
+    private static Mouse mouse;
 
-    public Computer(String name, CPU cpu, RAM ram,
-                    StorageType storageType, StorageSize storageSize,
-                    GraphicCard graphicCard) {
+    public Computer() {
+        this.name = "Computer";
+        this.cpu = null;
+        this.ram = null;
+        this.storageType = null;
+        this.storageSize = null;
+        this.graphicCard = null;
+        this.mouse = new Mouse();
+    }
+
+    public Computer(String name) {
+        this.name = name;
+        this.cpu = null;
+        this.ram = null;
+        this.storageType = null;
+        this.storageSize = null;
+        this.graphicCard = null;
+        this.mouse = new Mouse();
+    }
+
+    public Computer(String name, CPU cpu) {
+        this.name = name;
+        this.cpu = cpu;
+        this.ram = null;
+        this.storageType = null;
+        this.storageSize = null;
+        this.graphicCard = null;
+        this.mouse = new Mouse();
+    }
+
+    public Computer(String name, CPU cpu, RAM ram) {
+        this.name = name;
+        this.cpu = cpu;
+        this.ram = ram;
+        this.storageType = null;
+        this.storageSize = null;
+        this.graphicCard = null;
+        this.mouse = new Mouse();
+    }
+
+    public Computer(String name, CPU cpu, RAM ram, StorageType storageType, StorageSize storageSize) {
+        this.name = name;
+        this.cpu = cpu;
+        this.ram = ram;
+        this.storageType = storageType;
+        this.storageSize = storageSize;
+        this.graphicCard = null;
+        this.mouse = new Mouse();
+    }
+
+    public Computer(String name, CPU cpu, RAM ram, StorageType storageType, StorageSize storageSize, GraphicCard graphicCard) {
         this.name = name;
         this.cpu = cpu;
         this.ram = ram;
         this.storageType = storageType;
         this.storageSize = storageSize;
         this.graphicCard = graphicCard;
+        this.mouse = new Mouse();
+    }
+
+    public static void clickMouseLeftButton(int x, int y) {
+        mouse.moveMouse(x, y);
+        mouse.clickLeftButton();
+    }
+
+    public static void clickMouseRightButton(int x, int y) {
+        mouse.moveMouse(x, y);
+        mouse.clickRightButton();
     }
 
     public void boot() {
@@ -48,21 +109,28 @@ public class Computer {
 
     public void printSpec() {
         System.out.println("[" + name + " 스펙]");
-        System.out.println("CPU : " + cpu);
-        System.out.println("RAM : " + ram.toString().replace("GB_", "") + "GB");
-        System.out.println("Storage : " + storageType + " " + storageSize.toString().replace("GB_", "") + "GB");
-        System.out.println("Graphic : " + graphicCard);
+        System.out.println("이름 : " + name);
+        System.out.println("CPU : " + (cpu != null ? cpu : "조립중입니다"));
+        System.out.println("RAM : " + (ram != null ? ram.toString().replace("GB_", "") + "GB" : "조립중입니다"));
+        if (storageType != null && storageSize != null) {
+            System.out.println("Storage : " + storageType + " " + storageSize);
+        } else {
+            System.out.println("Storage : 조립중입니다");
+        }
+        System.out.println("Graphic : " + (graphicCard != null ? graphicCard : "조립중입니다"));
         System.out.println();
     }
 
     public static void main(String[] args) {
-        Computer[] computers = new Computer[5];
-
-        computers[0] = new Computer("sungbokPC", CPU.i5_14400F, RAM.GB_32, StorageType.SSD, StorageSize.TB_1, GraphicCard.RX_7600);
-        computers[1] = new Computer("com1", CPU.Gen9_i3, RAM.GB_4, StorageType.HDD, StorageSize.GB_240, GraphicCard.GTX_1660);
-        computers[2] = new Computer("com2", CPU.Gen9_i5, RAM.GB_8, StorageType.SSD, StorageSize.GB_512, GraphicCard.Intel_A770);
-        computers[3] = new Computer("com3", CPU.Gen9_i7, RAM.GB_16, StorageType.SSD, StorageSize.TB_1, GraphicCard.RTX_4070TI);
-        computers[4] = new Computer("com4", CPU.Gen9_i9, RAM.GB_32, StorageType.SSD, StorageSize.TB_2, GraphicCard.RTX_4080);
+        Computer[] computers = new Computer[6];
+        computers[0] = new Computer(); // 기본 생성자
+        computers[1] = new Computer("컴퓨터A");
+        computers[2] = new Computer("컴퓨터B", CPU.Gen9_i3);
+        computers[3] = new Computer("컴퓨터C", CPU.Gen9_i5, RAM.GB_16);
+        computers[4] = new Computer("컴퓨터D", CPU.Gen9_i7, RAM.GB_32, StorageType.SSD, StorageSize.TB_1);
+        computers[5] = new Computer("컴퓨터E", CPU.Gen9_i9, RAM.GB_32, StorageType.SSD, StorageSize.TB_2, GraphicCard.RTX_4080);
+        Computer.clickMouseLeftButton(200, 400);
+        Computer.clickMouseRightButton(600, 800);
 
         for (Computer comp : computers) {
             comp.boot();
