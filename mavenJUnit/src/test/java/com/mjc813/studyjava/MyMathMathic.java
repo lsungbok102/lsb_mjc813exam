@@ -1,4 +1,4 @@
-package com.mjc.studyjava;
+package com.mjc813.studyjava;
 
 import java.math.BigDecimal;
 import java.util.Random;
