@@ -1,80 +1,126 @@
 package com.mjc813.network;
 
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Scanner;
+import java.net.*;
+import java.util.*;
+import java.util.concurrent.*;
 
 public class ServerApp {
-    private ServerSocket ss;
-    private Socket sck;
-    private BufferedWriter writer;
+    private ServerSocket serverSocket;
+    private final Set<ClientHandler> clients = ConcurrentHashMap.newKeySet(); // 쓰레드 안전한 클라이언트 목록
     private boolean running = true;
 
     public ServerApp(int port) throws IOException {
-        this.ss = new ServerSocket(port);
+        serverSocket = new ServerSocket(port);
     }
 
-    public void init() {
-        try {
-            System.out.println("Waiting for client...");
-            sck = ss.accept();
-            System.out.println("Connected: " + sck.getRemoteSocketAddress());
+    public void start() {
+        System.out.println("Server started. Waiting for clients...");
 
-            // 수신 스레드
-            new Thread(() -> {
-                try (BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(sck.getInputStream()))) {
-                    String line;
-                    while (running && (line = reader.readLine()) != null) {
-                        System.out.println("From client: " + line);
-                        if (line.equals("exit!@#$app")) {
-                            System.out.println("Client requested exit.");
-                            running = false;
-                            break;
-                        }
-                    }
-                } catch (IOException e) {
-                    System.err.println("Read error: " + e.getMessage());
-                }
-            }).start();
-
-            // 송신 루프 (키보드 입력)
-            writer = new BufferedWriter(new OutputStreamWriter(sck.getOutputStream()));
-            Scanner scanner = new Scanner(System.in);
+        // 클라이언트 연결 수락용 스레드
+        new Thread(() -> {
             while (running) {
-                System.out.print("보낼 메시지: ");
-                String input = scanner.nextLine();
-                if (input.equals("quit")) {
-                    send("exit!@#$app");
-                    running = false;
-                } else {
-                    send(input);
+                try {
+                    Socket clientSocket = serverSocket.accept();
+                    ClientHandler handler = new ClientHandler(clientSocket);
+                    clients.add(handler);
+                    new Thread(handler).start(); // 클라이언트별 수신 쓰레드
+                    System.out.println("Client connected: " + clientSocket.getRemoteSocketAddress());
+                } catch (IOException e) {
+                    if (running)
+                        System.err.println("Accept error: " + e.getMessage());
                 }
             }
+        }).start();
 
-            close();
-            scanner.close();
-        } catch (IOException e) {
-            System.err.println("Server error: " + e.getMessage());
+        // 서버 콘솔 입력으로 종료 제어
+        try (Scanner scanner = new Scanner(System.in)) {
+            while (running) {
+                System.out.print("서버 명령어 입력 (quit 입력시 종료): ");
+                String cmd = scanner.nextLine();
+                if ("quit".equalsIgnoreCase(cmd)) {
+                    shutdown();
+                }
+            }
         }
     }
 
-    public void send(String msg) throws IOException {
-        writer.write(msg + "\n");
-        writer.flush();
+    public void broadcast(String message, ClientHandler sender) {
+        for (ClientHandler client : clients) {
+            if (client != sender) {
+                client.sendMessage(message);
+            }
+        }
     }
 
-    public void close() throws IOException {
-        if (writer != null) writer.close();
-        if (sck != null) sck.close();
-        if (ss != null) ss.close();
-        System.out.println("Server closed.");
+    public void removeClient(ClientHandler client) {
+        clients.remove(client);
+        System.out.println("Client disconnected: " + client.socket.getRemoteSocketAddress());
+    }
+
+    public void shutdown() {
+        running = false;
+        try {
+            for (ClientHandler client : clients) {
+                client.sendMessage("exit!@#$app");
+                client.close();
+            }
+            serverSocket.close();
+            System.out.println("Server shutdown.");
+        } catch (IOException e) {
+            System.err.println("Shutdown error: " + e.getMessage());
+        }
+    }
+
+    class ClientHandler implements Runnable {
+        private final Socket socket;
+        private BufferedReader reader;
+        private BufferedWriter writer;
+
+        public ClientHandler(Socket socket) throws IOException {
+            this.socket = socket;
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        }
+
+        public void run() {
+            try {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if ("exit!@#$app".equals(line)) {
+                        break;
+                    }
+                    System.out.println("From " + socket.getRemoteSocketAddress() + ": " + line);
+                    broadcast("From " + socket.getRemoteSocketAddress() + ": " + line, this);
+                }
+            } catch (IOException e) {
+                System.err.println("Client error: " + e.getMessage());
+            } finally {
+                close();
+                removeClient(this);
+            }
+        }
+
+        public void sendMessage(String msg) {
+            try {
+                writer.write(msg + "\n");
+                writer.flush();
+            } catch (IOException e) {
+                System.err.println("Send error: " + e.getMessage());
+            }
+        }
+
+        public void close() {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                System.err.println("Close error: " + e.getMessage());
+            }
+        }
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println("Server start");
-        ServerApp sa = new ServerApp(44567);
-        sa.init();
+        ServerApp server = new ServerApp(44567);
+        server.start();
     }
 }

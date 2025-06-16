@@ -1,4 +1,3 @@
-package com.mjc813.network;
 
 import java.io.*;
 import java.net.InetSocketAddress;
