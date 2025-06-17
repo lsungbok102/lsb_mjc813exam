@@ -1,4 +1,4 @@
-package com.mjc.mjc813.cal;
+package com.mjc813.mjc813.cal;
 
 public class MyCalculator {
     public int myAdd(int a, int b) {

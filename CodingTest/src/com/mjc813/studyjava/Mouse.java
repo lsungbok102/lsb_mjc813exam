@@ -1,4 +1,4 @@
-package com.mjc.studyjava;
+package com.mjc813.studyjava;
 
 public class Mouse {
     private int pointX;
