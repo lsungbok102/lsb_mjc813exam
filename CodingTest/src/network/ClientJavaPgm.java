@@ -22,7 +22,7 @@ public class ClientJavaPgm {
         bw.write(str);
         bw.flush();
         bw.close();
-    }
+    }   
 
     public void close() throws IOException {
         this.socket.close();
